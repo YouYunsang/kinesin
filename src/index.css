@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Add a custom font */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
