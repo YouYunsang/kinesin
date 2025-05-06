@@ -5,8 +5,12 @@ import { motion } from 'framer-motion';
 const HeroSection: React.FC = () => {
   return (
     <section className="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
+      {/*
+        TODO: Replace the image file at public/hero-background.jpg with your desired background image.
+        The current image source points to this location.
+      */}
       <img
-        src="https://images.unsplash.com/photo-1549490349-8643362b5b8d?auto=format&fit=crop&w=1920&q=80"
+        src="/hero-background.jpg" // 배경 이미지 경로를 public 폴더의 파일로 변경
         alt="전시회 배경 이미지"
         className="absolute inset-0 w-full h-full object-cover filter brightness-[.4]" // 배경 이미지 어둡게 조정
       />
