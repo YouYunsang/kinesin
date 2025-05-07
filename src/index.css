@@ -39,6 +39,11 @@
   .delay-300 { animation-delay: 0.3s; }
   .delay-400 { animation-delay: 0.4s; }
   .delay-500 { animation-delay: 0.5s; }
+
+  /* Hero Section Content Animation */
+  .hero-content-animate {
+    animation: heroContentFadeIn 1s ease-out forwards; /* 애니메이션 적용 */
+  }
 }
 
 @keyframes fadeInDown {
@@ -60,5 +65,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Hero Section Content Keyframes */
+@keyframes heroContentFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95); /* 시작 시 약간 작게 */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1); /* 끝날 때 원래 크기로 */
   }
 }
