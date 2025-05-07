@@ -15,7 +15,7 @@ function ArtworkDetail() {
     planningIntentionDementia: "\“The Mute Brush\”는 많은 이들에게 아픔을 주는 질병, \‘치매\’를 소재로 하여 만들어진 게임입니다. 사람이 살면서 평생을 그려온 인생이라는 그림이 지워져 가는 슬픔, 혼란, 공포가 바로 치매의 본질이라 생각했습니다. 평생을 함께 한 소중한 것들이 하나하나 지워지고, 더이상 그림을 그려나갈 수 없을 때의 감정을 조금이나마 느껴볼 수 있는 장을 만들고자 했고, 그것이 \“The Mute Brush\”입니다.", // Content for Dementia section (Placeholder)
     imageUrl: "https://images.unsplash.com/photo-1549490349-8643362247b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", // Example image
     medium: "Virtual Reality",
-    dimensions: "150cm x 100cm",
+    genre: "Horror VR / Game Art", // Changed from dimensions to genre
     year: "2025"
   };
 
@@ -112,7 +112,7 @@ function ArtworkDetail() {
             </h2>
             <div className="text-gray-400 text-lg space-y-3">
                <p><strong>매체:</strong> {artwork.medium}</p>
-               <p><strong>크기:</strong> {artwork.dimensions}</p>
+               <p><strong>장르:</strong> {artwork.genre}</p>{/* Changed label and data key */}
                <p><strong>제작 연도:</strong> {artwork.year}</p>
             </div>
          </section>

@@ -32,7 +32,7 @@ function App() {
       mainPosition: "3D 모델링 / 애니메이션", // Main Position
       subPosition: "게임 디자인", // Sub Position
       imageUrl: "/images/artists/artist1.png", // Local path
-      email: "kimminjun@example.com"
+      email: "cather0327@naver.com"
     },
     {
       name: "유윤상",
@@ -46,7 +46,7 @@ function App() {
       mainPosition: "클라이언트 개발", // Main Position
       subPosition: "게임 디자인", // Sub Position
       imageUrl: "/images/artists/artist3.png", // Local path
-      email: "leejihun@example.com"
+      email: "gktjddyd9429@naver.com"
     }
   ];
 
