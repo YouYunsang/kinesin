@@ -295,13 +295,13 @@ function App() {
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-100">전시 정보</h2> {/* Light heading */}
             <div className="text-lg text-gray-300 mb-12"> {/* Lighter gray text */}
               <p className="mb-4">
-                <strong>전시 일정:</strong> 2025년 1월 1일 - 2025년 1월 31일
+                <strong>전시 일정:</strong> 2025.05.23 - 2025.05.25
               </p>
               <p className="mb-4">
-                <strong>전시 시간:</strong> 오전 10시 - 오후 6시 (월요일 휴관)
+                <strong>전시 시간:</strong> 10:00 - 17:00
               </p>
               <p>
-                <strong>전시장 주소:</strong> 서울특별시 종로구 인사동5길 14
+                <strong>전시장 주소:</strong> 서울특별시 종로구 인사동5길 14, 마루아트센터 B1
               </p>
             </div>
           </section>

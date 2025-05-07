@@ -9,10 +9,12 @@ function ArtworkDetail() {
   // For now, we'll use a single example and enhance its presentation
   const artwork = {
     title: "The Mute Brush", // This should ideally match the artworkTitle from the URL
-    keywords: ["시간", "연결", "기억", "변화", "미지", "추상", "표현주의"], // Example keywords
-    planningIntention: "이 작품은 시간의 비선형적인 특성과 인간 경험 속에서의 시간의 의미를 탐구하기 위해 기획되었습니다. 과거의 흔적, 현재의 순간, 그리고 미래에 대한 상상이 캔버스 위에서 어떻게 상호작용하는지를 시각적으로 표현하고자 했습니다. 관람객이 작품을 통해 자신만의 시간적 서사를 발견하고, 삶의 연속성과 순간의 가치를 되돌아보는 계기가 되기를 바랍니다. 깊은 사색과 성찰을 유도하며, 각자의 내면 속 시간의 흐름을 느껴보도록 디자인되었습니다.", // Example intention
+    keywords: ["기억", "화가", "상실", "공허", "공포", "슬픔", "치매"], // Example keywords
+    // Split planning intention into two parts
+    planningIntentionGameArt: "\“The Mute Brush\”를 통해 게임 아트라는 새로운 장르에 도전하며, 게임이 가지고 있는 예술성을 사람들에게 보여주고 싶었습니다. \‘게임\’이라는 매체는 사람들의 강력한 몰입을 유도하며, 뛰어난 상호작용성은 플레이어로 하여금 작품의 일부가 되도록 합니다. 이에 VR을 접목하여 그러한 특성을 극대화 하고자 했습니다. 저희는 사람들이 작품의 한 가운데서 게임이 담고 있는 메시지, 감정, 스토리를 온몸으로 만끽하기를 바랍니다. \“The Mute Brush\”는 각 플레이어와 하나 되어 그들만의 이야기가 담긴 각기 다른 예술 작품으로 완성될 것 입니다.", // Content for Game Art section
+    planningIntentionDementia: "\“The Mute Brush\”는 많은 이들에게 아픔을 주는 질병, \‘치매\’를 소재로 하여 만들어진 게임입니다. 사람이 살면서 평생을 그려온 인생이라는 그림이 지워져 가는 슬픔, 혼란, 공포가 바로 치매의 본질이라 생각했습니다. 평생을 함께 한 소중한 것들이 하나하나 지워지고, 더이상 그림을 그려나갈 수 없을 때의 감정을 조금이나마 느껴볼 수 있는 장을 만들고자 했고, 그것이 \“The Mute Brush\”입니다.", // Content for Dementia section (Placeholder)
     imageUrl: "https://images.unsplash.com/photo-1549490349-8643362247b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", // Example image
-    medium: "캔버스에 유채",
+    medium: "Virtual Reality",
     dimensions: "150cm x 100cm",
     year: "2025"
   };
@@ -82,18 +84,29 @@ function ArtworkDetail() {
           </div>
         </section>
 
-        {/* Planning Intention Section */}
+        {/* Planning Intention Section 1 - Game Art */}
         <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp delay-400' : 'opacity-0'}`}> {/* Dark section background */}
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100 border-b-2 border-gray-700 pb-3"> {/* Light heading, darker gray border */}
-            기획 의도
+            기획의도 1 - 게임 아트
           </h2>
           <p className="text-gray-400 leading-relaxed text-lg"> {/* Lighter gray text */}
-            {artwork.planningIntention}
+            {artwork.planningIntentionGameArt}
           </p>
         </section>
 
+        {/* Planning Intention Section 2 - Dementia Expression */}
+        <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp delay-500' : 'opacity-0'}`}> {/* Dark section background */}
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100 border-b-2 border-gray-700 pb-3"> {/* Light heading, darker gray border */}
+            기획 의도 2 - 치매의 표현
+          </h2>
+          <p className="text-gray-400 leading-relaxed text-lg"> {/* Lighter gray text */}
+            {artwork.planningIntentionDementia}
+          </p>
+        </section>
+
+
         {/* Technical Details Section (Optional but adds value) */}
-         <section className={`bg-gray-900 rounded-xl shadow-lg p-8 ${isVisible ? 'animate-fadeInUp delay-500' : 'opacity-0'}`}>
+         <section className={`bg-gray-900 rounded-xl shadow-lg p-8 ${isVisible ? 'animate-fadeInUp delay-600' : 'opacity-0'}`}> {/* Adjusted delay */}
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100 border-b-2 border-gray-700 pb-3">
               작품 정보
             </h2>
