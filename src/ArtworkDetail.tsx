@@ -37,6 +37,7 @@ function ArtworkDetail() {
       <div className="container mx-auto px-4 relative z-10"> {/* Add relative and z-index for content */}
 
         {/* Back Button */}
+        {/* Removed delay-0 from here as well for consistency, it will animate with the main container */}
         <div className={`py-8 ${isVisible ? 'animate-fadeInDown' : 'opacity-0'}`}>
           <Link
             to="/"
@@ -49,7 +50,8 @@ function ArtworkDetail() {
         </div>
 
         {/* Hero Section with Artwork Image */}
-        <section className={`mb-16 ${isVisible ? 'animate-fadeInUp delay-100' : 'opacity-0'}`}>
+        {/* Removed delay-100 */}
+        <section className={`mb-16 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}>
            <div className="relative w-full h-[60vh] md:h-[80vh] rounded-xl overflow-hidden shadow-2xl">
               <img
                 src={artwork.imageUrl}
@@ -68,7 +70,8 @@ function ArtworkDetail() {
 
 
         {/* Keywords Section */}
-        <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp delay-300' : 'opacity-0'}`}> {/* Dark section background */}
+        {/* Removed delay-300 */}
+        <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}> {/* Dark section background */}
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100 border-b-2 border-gray-700 pb-3"> {/* Light heading, darker gray border */}
             작품 키워드
           </h2>
@@ -85,7 +88,8 @@ function ArtworkDetail() {
         </section>
 
         {/* Planning Intention Section 1 - Game Art */}
-        <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp delay-400' : 'opacity-0'}`}> {/* Dark section background */}
+        {/* Removed delay-400 */}
+        <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}> {/* Dark section background */}
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100 border-b-2 border-gray-700 pb-3"> {/* Light heading, darker gray border */}
             기획의도 1 - 게임 아트
           </h2>
@@ -95,7 +99,8 @@ function ArtworkDetail() {
         </section>
 
         {/* Planning Intention Section 2 - Dementia Expression */}
-        <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp delay-500' : 'opacity-0'}`}> {/* Dark section background */}
+        {/* Removed delay-500 */}
+        <section className={`bg-gray-900 rounded-xl shadow-lg p-8 mb-12 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}> {/* Dark section background */}
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100 border-b-2 border-gray-700 pb-3"> {/* Light heading, darker gray border */}
             기획 의도 2 - 치매의 표현
           </h2>
@@ -106,7 +111,8 @@ function ArtworkDetail() {
 
 
         {/* Technical Details Section (Optional but adds value) */}
-         <section className={`bg-gray-900 rounded-xl shadow-lg p-8 ${isVisible ? 'animate-fadeInUp delay-600' : 'opacity-0'}`}> {/* Adjusted delay */}
+         {/* Removed delay-600 */}
+         <section className={`bg-gray-900 rounded-xl shadow-lg p-8 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}> {/* Adjusted delay */}
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100 border-b-2 border-gray-700 pb-3">
               작품 정보
             </h2>
