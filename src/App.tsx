@@ -41,7 +41,7 @@ function App() {
       mainPosition: "게임 디자인", // Main Position
       subPosition: "3D 모델링", // Sub Position
       imageUrl: "/images/artists/artist2.png", // Local path
-      email: "parkseoyeon@example.com"
+      email: "vipsang02@gmail.com"
     },
     {
       name: "하성용",
