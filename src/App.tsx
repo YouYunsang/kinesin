@@ -194,7 +194,7 @@ function App() {
             <img
               src={heroArtwork.imageUrl} // This remains a URL
               alt={heroArtwork.title}
-              className="absolute inset-0 w-full h-full object-cover filter brightness-[0.4] grayscale transform scale-105 transition-transform duration-1000 ease-in-out hover:scale-100" // Darker, grayscale image
+              className="absolute inset-0 w-full h-full object-cover filter brightness-[0.4] grayscale transform scale-105 transition-transform duration-1000 ease-in-out hover:scale-100" // Darker, grayscale image (KEEP)
             />
             <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-6"> {/* Darker overlay */}
               <div className="text-center text-white max-w-4xl">
@@ -230,7 +230,7 @@ function App() {
                     <img
                       src={artwork.imageUrl} // This is now a local path
                       alt={artwork.title}
-                      className="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 filter grayscale" // Grayscale artwork images
+                      className="w-full h-64 object-cover transition-transform duration-500 hover:scale-110" // Removed filter grayscale
                     />
                     <div className="p-6">
                       <h3 className="text-xl font-semibold mb-3 text-gray-100">{artwork.title}</h3> {/* Light text */}
@@ -257,7 +257,7 @@ function App() {
                     <img
                       src={artist.imageUrl} // This is now a local path
                       alt={artist.name}
-                      className="w-full h-72 object-cover object-top transition-transform duration-500 hover:scale-110 filter grayscale" // Grayscale artist images
+                      className="w-full h-72 object-cover object-top transition-transform duration-500 hover:scale-110" // Removed filter grayscale
                     />
                     <div className="p-8 text-center">
                       <h3 className="text-2xl font-semibold mb-4 text-gray-100">{artist.name}</h3> {/* Light text */}

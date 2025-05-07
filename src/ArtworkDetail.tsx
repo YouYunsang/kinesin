@@ -52,7 +52,7 @@ function ArtworkDetail() {
               <img
                 src={artwork.imageUrl}
                 alt={artwork.title}
-                className="w-full h-full object-cover filter brightness-[0.6] grayscale transition-transform duration-700 ease-in-out hover:scale-105" // Slightly brighter, grayscale
+                className="w-full h-full object-cover filter brightness-[0.6] grayscale transition-transform duration-700 ease-in-out hover:scale-105" // Slightly brighter, grayscale (KEEP)
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-80"></div> {/* Gradient overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white text-center">
