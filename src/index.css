@@ -2,21 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+/*
+  작가 사진 (960x1440)이 컨테이너에 맞게 표시되도록 하려면,
+  작가 사진을 표시하는 <img> 태그에 다음 Tailwind 클래스를 적용하세요:
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  - w-full: 부모 요소의 너비를 꽉 채웁니다.
+  - h-full: 부모 요소의 높이를 꽉 채웁니다.
+  - object-cover: 이미지의 가로세로 비율을 유지하면서 부모 요소를 꽉 채우도록 크기를 조정합니다.
+                  필요에 따라 이미지 일부가 잘릴 수 있습니다.
+
+  예시:
+  <div class="w-48 h-64 overflow-hidden rounded-lg"> // 이미지를 담을 컨테이너 (원하는 크기로 조정)
+    <img
+      src="/public/images/artists/artist1.png" // 작가 이미지 경로
+      alt="작가 이름"
+      class="w-full h-full object-cover" // 여기에 클래스 적용
+    />
+  </div>
+
+  만약 이미지가 잘리는 것을 원치 않고, 대신 컨테이너 안에 이미지가 모두 보이도록 하려면 object-contain 클래스를 사용하세요.
+  class="w-full h-full object-contain" // 이미지가 컨테이너 안에 모두 보이도록 조정 (빈 공간이 생길 수 있음)
+*/
+
+
+@layer utilities {
+  .animate-fadeInDown {
+    animation: fadeInDown 0.5s ease-out forwards;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.5s ease-out forwards;
   }
+
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
 }
 
 @keyframes fadeInDown {
@@ -30,53 +52,13 @@
   }
 }
 
-
-/* Animation classes */
-.animate-fadeIn {
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.animate-fadeInDown {
-  animation: fadeInDown 0.8s ease-out forwards;
-}
-
-/* Delay classes */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-.delay-600 { animation-delay: 0.6s; }
-.delay-700 { animation-delay: 0.7s; }
-.delay-800 { animation-delay: 0.8s; }
-.delay-900 { animation-delay: 0.9s; }
-.delay-1000 { animation-delay: 1s; }
-
-/* Ensure elements are initially hidden before animation */
-.animate-fadeIn,
-.animate-fadeInUp,
-.animate-fadeInDown {
-  opacity: 0;
-}
-
-/* Basic dark theme styles */
-body {
-  background-color: #1a1a1a; /* Dark background */
-  color: #e0e0e0; /* Light gray text */
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #ffffff; /* White headings */
-}
-
-a {
-  color: #bbbbbb; /* Slightly lighter gray for links */
-}
-
-a:hover {
-  color: #ffffff; /* White on hover */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
