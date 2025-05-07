@@ -20,27 +20,31 @@ function App() {
   // Hero Artwork - Keep URL
   const heroArtwork = {
     title: "The Mute Brush",
-    description: "이 작품은 과거, 현재, 미래가 끊임없이 연결되는 시간의 본질을 탐구합니다. 캔버스 위에 겹겹이 쌓인 색채와 질감은 기억의 파편과 변화하는 현실, 그리고 다가올 미지의 세계를 상징합니다. 관람객은 작품 앞에서 자신만의 시간 여행을 떠나며 삶의 연속성과 순간의 소중함을 되새기게 될 것입니다.",
+    description: "\"The Mute Brush\"는 더이상 기억을 그리지 못하는, 그려 놓았던 것마저 잃어가는 치매 환자의 내면을 담았습니다. 평생을 그려낸 인생이라는 그림을 잃어가는 공포, 혼란, 공허를 느껴보세요.",
     imageUrl: "https://images.unsplash.com/photo-1549490349-8643362247b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
   };
 
   // Artists - Use local paths (place images in public/images/artists)
+  // Updated to include mainPosition and subPosition instead of bio
   const artists = [
     {
       name: "박지우",
-      bio: "추상 표현주의를 기반으로 인간 내면의 감정을 색채와 형태로 표현하는 작가입니다. 그의 작품은 강렬한 붓 터치와 깊이 있는 색감으로 유명합니다.",
+      mainPosition: "3D 모델링 / 애니메이션", // Main Position
+      subPosition: "게임 디자인", // Sub Position
       imageUrl: "/images/artists/artist1.png", // Local path
       email: "kimminjun@example.com"
     },
     {
       name: "유윤상",
-      bio: "자연에서 영감을 받아 유기적인 형태와 부드러운 색감을 사용하는 작가입니다. 그녀의 작업은 평온함과 조화로움을 선사합니다.",
+      mainPosition: "게임 디자인", // Main Position
+      subPosition: "3D 모델링", // Sub Position
       imageUrl: "/images/artists/artist2.png", // Local path
       email: "parkseoyeon@example.com"
     },
     {
       name: "하성용",
-      bio: "디지털 매체를 활용하여 현실과 가상의 경계를 탐구하는 미디어 아티스트입니다. 그의 작품은 새로운 시각적 경험을 제공합니다.",
+      mainPosition: "클라이언트 개발", // Main Position
+      subPosition: "게임 디자인", // Sub Position
       imageUrl: "/images/artists/artist3.png", // Local path
       email: "leejihun@example.com"
     }
@@ -49,33 +53,33 @@ function App() {
   // Artworks - Use local paths (place images in public/images/artworks)
   const artworks = [
     {
-      title: "고요한 아침",
-      description: "새벽의 고요함과 빛의 변화를 포착한 작품입니다. 부드러운 색채와 섬세한 붓 터치가 특징입니다.",
+      title: "내면으로 가는 길목",
+      description: "본격적으로 게임이 시작되기 이전 세계관 설명이 진행되는 가상의 공간입니다.",
       imageUrl: "/images/artworks/artwork1.png" // Local path
     },
     {
-      title: "도시의 리듬",
-      description: "복잡한 도시의 에너지와 움직임을 추상적으로 표현했습니다. 강렬한 색상 대비가 인상적입니다.",
+      title: "내면의 작업실",
+      description: "게임 진행의 메인 공간인 내면세계의 모습입니다. 의식한 것들이 그림이 되어 기억으로 남겨지는 공간입니다.",
       imageUrl: "/images/artworks/artwork2.png" // Local path
     },
     {
-      title: "숲의 속삭임",
-      description: "자연 속에서 느껴지는 평화와 생명력을 담았습니다. 녹색과 갈색의 조화가 편안함을 줍니다.",
+      title: "기억의 그림",
+      description: "기억으로 남겨질 그림이 그려지는 공간으로, 플레이어는 이곳에서 자신이 의식한 모든 것을 자유롭게 그려낼 수 있습니다.",
       imageUrl: "/images/artworks/artwork3.png" // Local path
     },
     {
-      title: "바다의 기억",
-      description: "끝없이 펼쳐진 바다와 그 속에 담긴 추억을 표현했습니다. 푸른색 계열의 깊이 있는 색감이 특징입니다.",
+      title: "치매 악화의 시작",
+      description: "치매가 악화됨에 따라 벌어지는 이상 현상 중 하나로, 내면세계를 비추던 환한 빛이 꺼지며 존재 상실의 시작을 알립니다.",
       imageUrl: "/images/artworks/artwork4.png" // Local path
     },
     {
-      title: "꿈의 조각",
-      description: "현실과 비현실의 경계를 넘나드는 꿈의 세계를 시각화했습니다. 신비로운 분위기를 자아냅니다.",
+      title: "감정의 요동",
+      description: "치매의 악화로 인해 감정 변화를 컨트롤 하지 못하게 된 상황이 내면 세계에 영향을 주는 모습입니다.",
       imageUrl: "/images/artworks/artwork5.png" // Local path
     },
     {
-      title: "빛의 춤",
-      description: "다양한 형태의 빛이 만들어내는 움직임과 패턴을 표현했습니다. 역동적이고 생기 넘치는 작품입니다.",
+      title: "무의식 공간",
+      description: "무의식 공간의 모습입니다. 플레이어 내면의 가장 깊숙한 공간으로 잊힌 기억들과 콤플렉스가 존재합니다.",
       imageUrl: "/images/artworks/artwork6.png" // Local path
     },
   ];
@@ -272,7 +276,13 @@ function App() {
                     />
                     <div className="p-8 text-center">
                       <h3 className="text-2xl font-semibold mb-4 text-gray-100">{artist.name}</h3> {/* Light text */}
-                      <p className="text-gray-300 leading-relaxed text-base">{artist.bio}</p> {/* Lighter gray text */}
+                      {/* Displaying main and sub positions */}
+                      <p className="text-gray-300 leading-relaxed text-base mb-2">
+                        <strong>Main:</strong> {artist.mainPosition}
+                      </p>
+                       <p className="text-gray-400 leading-relaxed text-sm">
+                        <strong>Sub:</strong> {artist.subPosition}
+                      </p>
                     </div>
                   </div>
                 );
