@@ -26,6 +26,7 @@
 
 
 @layer utilities {
+  /* App.tsx에서 사용되는 애니메이션 클래스 유지 */
   .animate-fadeInDown {
     animation: fadeInDown 0.5s ease-out forwards;
   }
@@ -40,12 +41,13 @@
   .delay-400 { animation-delay: 0.4s; }
   .delay-500 { animation-delay: 0.5s; }
 
-  /* Hero Section Content Animation */
-  .hero-content-animate {
-    animation: heroContentFadeIn 1s ease-out forwards; /* 애니메이션 적용 */
-  }
+  /* Hero Section Content Animation - framer-motion으로 대체되므로 제거 */
+  /* .hero-content-animate {
+    animation: heroContentFadeIn 1s ease-out forwards;
+  } */
 }
 
+/* App.tsx에서 사용되는 키프레임 유지 */
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -68,14 +70,14 @@
   }
 }
 
-/* Hero Section Content Keyframes */
-@keyframes heroContentFadeIn {
+/* Hero Section Content Keyframes - framer-motion으로 대체되므로 제거 */
+/* @keyframes heroContentFadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95); /* 시작 시 약간 작게 */
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: scale(1); /* 끝날 때 원래 크기로 */
+    transform: scale(1);
   }
-}
+} */
