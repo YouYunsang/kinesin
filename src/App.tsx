@@ -254,10 +254,11 @@ function App() {
                     key={index}
                     className={`bg-gray-800 rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-3xl cursor-pointer ${artistsVisible ? `animate-fadeInUp delay-${index * 100}` : 'opacity-0'}`} // Dark card background
                   >
+                    {/* Adjusted image classes */}
                     <img
                       src={artist.imageUrl} // This is now a local path
                       alt={artist.name}
-                      className="w-full h-72 object-cover object-top transition-transform duration-500 hover:scale-110" // Removed filter grayscale
+                      className="w-full h-auto object-contain object-top transition-transform duration-500 hover:scale-110" // Removed h-72, changed object-cover to object-contain
                     />
                     <div className="p-8 text-center">
                       <h3 className="text-2xl font-semibold mb-4 text-gray-100">{artist.name}</h3> {/* Light text */}
