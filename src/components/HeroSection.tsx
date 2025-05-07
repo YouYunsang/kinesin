@@ -1,6 +1,6 @@
 import React from 'react';
 import { Brush } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; // Import motion from framer-motion
 
 const HeroSection: React.FC = () => {
 
@@ -16,7 +16,7 @@ const HeroSection: React.FC = () => {
     }
   };
 
-  // Define item variants for children animation
+  // Define item variants for children animation (fade in and subtle move up)
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -24,7 +24,7 @@ const HeroSection: React.FC = () => {
       y: 0,
       transition: {
         duration: 0.6, // Duration for each item
-        ease: "easeOut"
+        ease: "easeOut" // Easing function
       }
     }
   };
@@ -41,31 +41,33 @@ const HeroSection: React.FC = () => {
         alt="전시회 배경 이미지"
         className="absolute inset-0 w-full h-full object-cover filter brightness-[.4]" // 배경 이미지 어둡게 조정
       />
+      {/* Use motion.div for the main content container */}
       <motion.div
-        variants={containerVariants} // Use container variants
-        initial="hidden"
-        animate="visible"
+        variants={containerVariants} // Apply container variants
+        initial="hidden" // Start from hidden state
+        animate="visible" // Animate to visible state on mount
         className="relative z-10 p-6 md:p-10 bg-black bg-opacity-40 rounded-xl shadow-2xl max-w-4xl mx-auto transform transition-all duration-500 ease-in-out hover:scale-105" // 배경 오버레이 및 그림자 강화
       >
+        {/* Use motion.div for each child element */}
         <motion.div
-          variants={itemVariants} // Use item variants
+          variants={itemVariants} // Apply item variants
         >
           <Brush size={72} className="mx-auto mb-6 text-white animate-pulse" /> {/* 아이콘 크기 키우고 애니메이션 추가 */}
         </motion.div>
         <motion.h1
-          variants={itemVariants} // Use item variants
+          variants={itemVariants} // Apply item variants
           className="text-4xl md:text-7xl font-extrabold mb-4 drop-shadow-xl tracking-tight" // 제목 폰트 및 크기 강화
         >
           The Mute Brush
         </motion.h1>
         <motion.p
-          variants={itemVariants} // Use item variants
+          variants={itemVariants} // Apply item variants
           className="text-lg md:text-2xl mb-8 drop-shadow-lg font-light" // 부제 폰트 및 크기 강화
         >
           [전시회 부제 또는 간략한 설명]
         </motion.p>
         <motion.a
-          variants={itemVariants} // Use item variants
+          variants={itemVariants} // Apply item variants
           href="#about"
           className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-10 rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transition duration-300 transform hover:-translate-y-1" // 버튼 스타일 개선
         >

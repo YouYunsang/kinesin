@@ -1,21 +1,23 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Brush, ArrowUp } from 'lucide-react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom'; // Import useLocation
+import { Brush, ArrowUp, Menu, X } from 'lucide-react'; // Import Menu and X icons
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import ArtworkDetail from './ArtworkDetail';
 
 function App() {
   const artistsSectionNavRef = useRef<HTMLDivElement>(null);
   const artworksSectionNavRef = useRef<HTMLDivElement>(null);
   const contactSectionNavRef = useRef<HTMLDivElement>(null);
-  const exhibitionInfoSectionNavRef = useRef<HTMLDivElement>(null); // New ref for Exhibition Info
+  const exhibitionInfoSectionNavRef = useRef<HTMLDivElement>(null);
 
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [artworksVisible, setArtworksVisible] = useState(false);
   const [artistsVisible, setArtistsVisible] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
-  // No new state needed for Exhibition Info visibility
 
-  const location = useLocation(); // Get current location
+  // State for mobile menu visibility
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const location = useLocation();
 
   // Hero Artwork - Keep URL
   const heroArtwork = {
@@ -87,6 +89,8 @@ function App() {
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth' });
+      // Close mobile menu after clicking a link
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -95,7 +99,30 @@ function App() {
       top: 0,
       behavior: 'smooth'
     });
+    // Close mobile menu after clicking scroll to top (if it were in the menu)
+    setIsMobileMenuOpen(false);
   };
+
+  // Toggle mobile menu state
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Close mobile menu when screen size changes to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 640) { // Tailwind's 'sm' breakpoint is 640px
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -169,39 +196,82 @@ function App() {
       <Route path="/" element={
         <div className="min-h-screen bg-gray-900 text-gray-300 overflow-x-hidden"> {/* Dark background, light text */}
           {/* Header */}
-          <header className="container mx-auto px-4 py-6 flex justify-between items-center text-gray-100"> {/* Light text for header */}
+          <header className="container mx-auto px-4 py-6 flex justify-between items-center text-gray-100 relative z-50"> {/* Added relative z-50 */}
             <div className="flex items-center text-2xl font-bold">
               <Brush size={32} className="mr-3 text-gray-400" /> {/* Icon color */}
               <span>Kinesin</span> {/* Changed text here */}
             </div>
-            <nav className="flex space-x-4">
+
+            {/* Desktop Navigation */}
+            <nav className="hidden sm:flex space-x-4"> {/* Hidden on small, flex on medium+ */}
               <button
                 onClick={() => scrollToSection(artworksSectionNavRef)}
-                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
               >
                 작품 사진
               </button>
               <button
                 onClick={() => scrollToSection(artistsSectionNavRef)}
-                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
               >
                 참여 작가
               </button>
-              {/* New Exhibition Info Button */}
               <button
                 onClick={() => scrollToSection(exhibitionInfoSectionNavRef)}
-                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
               >
                 전시 정보
               </button>
                <button
                 onClick={() => scrollToSection(contactSectionNavRef)}
-                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
               >
                 문의하기
               </button>
             </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="sm:hidden"> {/* Visible only on small screens */}
+              <button
+                onClick={toggleMobileMenu}
+                className="text-gray-300 hover:text-white focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />} {/* Show X when open, Menu when closed */}
+              </button>
+            </div>
           </header>
+
+          {/* Mobile Menu Overlay */}
+          {isMobileMenuOpen && (
+            <div className="sm:hidden fixed inset-0 bg-gray-900 bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 animate-fadeIn"> {/* Full screen overlay */}
+               <button
+                onClick={() => scrollToSection(artworksSectionNavRef)}
+                className="text-xl text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                작품 사진
+              </button>
+              <button
+                onClick={() => scrollToSection(artistsSectionNavRef)}
+                className="text-xl text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                참여 작가
+              </button>
+              <button
+                onClick={() => scrollToSection(exhibitionInfoSectionNavRef)}
+                className="text-xl text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                전시 정보
+              </button>
+               <button
+                onClick={() => scrollToSection(contactSectionNavRef)}
+                className="text-xl text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                문의하기
+              </button>
+            </div>
+          )}
+
 
           {/* Hero Section - Artwork Introduction */}
           <section className="relative h-[70vh] md:h-[85vh] overflow-hidden shadow-xl">
