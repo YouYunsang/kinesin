@@ -7,11 +7,13 @@ function App() {
   const artistsSectionNavRef = useRef<HTMLDivElement>(null);
   const artworksSectionNavRef = useRef<HTMLDivElement>(null);
   const contactSectionNavRef = useRef<HTMLDivElement>(null);
+  // No new ref needed for Exhibition Info as it's not a primary nav target
 
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [artworksVisible, setArtworksVisible] = useState(false);
   const [artistsVisible, setArtistsVisible] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
+  // No new state needed for Exhibition Info visibility
 
   const location = useLocation(); // Get current location
 
@@ -28,19 +30,19 @@ function App() {
       name: "박지우",
       bio: "추상 표현주의를 기반으로 인간 내면의 감정을 색채와 형태로 표현하는 작가입니다. 그의 작품은 강렬한 붓 터치와 깊이 있는 색감으로 유명합니다.",
       imageUrl: "/images/artists/artist1.png", // Local path
-      email: "kimminjun@example.com"
+      email: "cather0327@naver.com"
     },
     {
       name: "유윤상",
       bio: "자연에서 영감을 받아 유기적인 형태와 부드러운 색감을 사용하는 작가입니다. 그녀의 작업은 평온함과 조화로움을 선사합니다.",
       imageUrl: "/images/artists/artist2.png", // Local path
-      email: "parkseoyeon@example.com"
+      email: "vipsang02@gmail.com"
     },
     {
       name: "하성용",
       bio: "디지털 매체를 활용하여 현실과 가상의 경계를 탐구하는 미디어 아티스트입니다. 그의 작품은 새로운 시각적 경험을 제공합니다.",
       imageUrl: "/images/artists/artist3.png", // Local path
-      email: "leejihun@example.com"
+      email: "gktjddyd9429@naver.com"
     }
   ];
 
@@ -270,7 +272,24 @@ function App() {
             </div>
           </section>
 
-          {/* Contact Section */}
+          {/* Exhibition Info Section - NEW SECTION */}
+          <section className="container mx-auto px-4 py-20 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-100">전시 정보</h2> {/* Light heading */}
+            <div className="text-lg text-gray-300 mb-12"> {/* Lighter gray text */}
+              <p className="mb-4">
+                <strong>전시 일정:</strong> 2025년 5월 23일 - 2025년 5월 25일
+              </p>
+              <p className="mb-4">
+                <strong>전시 시간:</strong> 오전 10시 - 오후 5시
+              </p>
+              <p>
+                <strong>전시장 주소:</strong> 서울특별시 종로구 인사동5길 14, 마루아트센터 B1
+              </p>
+            </div>
+          </section>
+
+
+          {/* Contact Section - MODIFIED */}
           <section ref={contactSectionNavRef} className={`container mx-auto px-4 py-20 text-center ${contactVisible ? 'animate-fadeIn' : 'opacity-0'}`}>
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-100">문의하기</h2> {/* Light heading */}
             <div className="text-lg text-gray-300 mb-12"> {/* Lighter gray text */}
@@ -282,9 +301,7 @@ function App() {
                   </li>
                 ))}
               </ul>
-              <p>
-                <strong>전시장 주소:</strong> 서울특별시 종로구 인사동5길 14
-              </p>
+              {/* Removed Exhibition Address from here */}
             </div>
 
             {/* Map Placeholder or alternative if possible */}
