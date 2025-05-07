@@ -10,7 +10,7 @@ const HeroSection: React.FC = () => {
         The current image source points to this location.
       */}
       <img
-        src="/hero-background.jpg" // 배경 이미지 경로를 public 폴더의 파일로 변경
+        src="public/hero-background.jpg" // 배경 이미지 경로를 public 폴더의 파일로 변경
         alt="전시회 배경 이미지"
         className="absolute inset-0 w-full h-full object-cover filter brightness-[.4]" // 배경 이미지 어둡게 조정
       />
