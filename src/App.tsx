@@ -7,7 +7,7 @@ function App() {
   const artistsSectionNavRef = useRef<HTMLDivElement>(null);
   const artworksSectionNavRef = useRef<HTMLDivElement>(null);
   const contactSectionNavRef = useRef<HTMLDivElement>(null);
-  // No new ref needed for Exhibition Info as it's not a primary nav target
+  const exhibitionInfoSectionNavRef = useRef<HTMLDivElement>(null); // New ref for Exhibition Info
 
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [artworksVisible, setArtworksVisible] = useState(false);
@@ -30,19 +30,19 @@ function App() {
       name: "박지우",
       bio: "추상 표현주의를 기반으로 인간 내면의 감정을 색채와 형태로 표현하는 작가입니다. 그의 작품은 강렬한 붓 터치와 깊이 있는 색감으로 유명합니다.",
       imageUrl: "/images/artists/artist1.png", // Local path
-      email: "cather0327@naver.com"
+      email: "kimminjun@example.com"
     },
     {
       name: "유윤상",
       bio: "자연에서 영감을 받아 유기적인 형태와 부드러운 색감을 사용하는 작가입니다. 그녀의 작업은 평온함과 조화로움을 선사합니다.",
       imageUrl: "/images/artists/artist2.png", // Local path
-      email: "vipsang02@gmail.com"
+      email: "parkseoyeon@example.com"
     },
     {
       name: "하성용",
       bio: "디지털 매체를 활용하여 현실과 가상의 경계를 탐구하는 미디어 아티스트입니다. 그의 작품은 새로운 시각적 경험을 제공합니다.",
       imageUrl: "/images/artists/artist3.png", // Local path
-      email: "gktjddyd9429@naver.com"
+      email: "leejihun@example.com"
     }
   ];
 
@@ -134,6 +134,7 @@ function App() {
         } else if (entry.target === contactSectionNavRef.current) {
           setContactVisible(entry.isIntersecting);
         }
+        // No need to track exhibitionInfoSectionNavRef visibility for now
       });
     }, observerOptions);
 
@@ -167,24 +168,31 @@ function App() {
           <header className="container mx-auto px-4 py-6 flex justify-between items-center text-gray-100"> {/* Light text for header */}
             <div className="flex items-center text-2xl font-bold">
               <Brush size={32} className="mr-3 text-gray-400" /> {/* Icon color */}
-              <span>팀 Kinesin</span> {/* Changed text here */}
+              <span>Kinesin</span> {/* Changed text here */}
             </div>
             <nav className="flex space-x-4">
               <button
                 onClick={() => scrollToSection(artworksSectionNavRef)}
-                className="text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
               >
                 작품 사진
               </button>
               <button
                 onClick={() => scrollToSection(artistsSectionNavRef)}
-                className="text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
               >
                 참여 작가
               </button>
+              {/* New Exhibition Info Button */}
+              <button
+                onClick={() => scrollToSection(exhibitionInfoSectionNavRef)}
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
+              >
+                전시 정보
+              </button>
                <button
                 onClick={() => scrollToSection(contactSectionNavRef)}
-                className="text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
+                className="text-sm text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105" // Added text-sm
               >
                 문의하기
               </button>
@@ -273,17 +281,17 @@ function App() {
           </section>
 
           {/* Exhibition Info Section - NEW SECTION */}
-          <section className="container mx-auto px-4 py-20 text-center">
+          <section ref={exhibitionInfoSectionNavRef} className="container mx-auto px-4 py-20 text-center"> {/* Assign ref */}
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-100">전시 정보</h2> {/* Light heading */}
             <div className="text-lg text-gray-300 mb-12"> {/* Lighter gray text */}
               <p className="mb-4">
-                <strong>전시 일정:</strong> 2025년 5월 23일 - 2025년 5월 25일
+                <strong>전시 일정:</strong> 2025년 1월 1일 - 2025년 1월 31일
               </p>
               <p className="mb-4">
-                <strong>전시 시간:</strong> 오전 10시 - 오후 5시
+                <strong>전시 시간:</strong> 오전 10시 - 오후 6시 (월요일 휴관)
               </p>
               <p>
-                <strong>전시장 주소:</strong> 서울특별시 종로구 인사동5길 14, 마루아트센터 B1
+                <strong>전시장 주소:</strong> 서울특별시 종로구 인사동5길 14
               </p>
             </div>
           </section>
