@@ -370,10 +370,19 @@ function App() {
               <p className="mb-4">
                 <strong>전시 시간:</strong> 10:00 - 17:00
               </p>
-              <p>
+              <p className="mb-4">
                 <strong>전시장 주소:</strong> 서울특별시 종로구 인사동5길 14, 마루아트센터 B1
               </p>
+              {/* Added Official URL */}
+              <p>
+                <strong>공식 url:</strong> <a href="https://afterglow2025.github.io/afterglow2025/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:underline hover:text-white">https://afterglow2025.github.io/afterglow2025/</a>
+              </p>
             </div>
+
+
+            {/* Map Placeholder or alternative if possible */}
+            {/* Due to environment limitations, interactive map embedding may not be possible. */}
+            {/* You can replace this section with a static image of the map if needed. */}
           </section>
 
 
