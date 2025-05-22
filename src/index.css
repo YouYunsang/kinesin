@@ -45,6 +45,15 @@
   /* .hero-content-animate {
     animation: heroContentFadeIn 1s ease-out forwards;
   } */
+
+  /* Add scroll-snap utilities if not provided by default Tailwind config */
+  /* You might need to configure this in tailwind.config.js if these don't work */
+  .snap-x {
+    scroll-snap-type: x mandatory;
+  }
+  .snap-center {
+    scroll-snap-align: center;
+  }
 }
 
 /* App.tsx에서 사용되는 키프레임 유지 */

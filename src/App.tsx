@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Brush, ArrowUp, Menu, X } from 'lucide-react'; // Import Menu and X icons
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import ArtworkDetail from './ArtworkDetail';
+import ExhibitionSlider from './ExhibitionSlider'; // Import the new component
 
 function App() {
   const artistsSectionNavRef = useRef<HTMLDivElement>(null);
@@ -197,10 +198,11 @@ function App() {
         <div className="min-h-screen bg-black text-gray-300 overflow-x-hidden"> {/* Changed main background to black */}
           {/* Header */}
           <header className="container mx-auto px-4 py-6 flex justify-between items-center text-gray-100 relative z-50"> {/* Added relative z-50 */}
-            <div className="flex items-center text-2xl font-bold">
+            {/* Kinesin Logo - Now a Link */}
+            <Link to="/exhibition" className="flex items-center text-2xl font-bold hover:opacity-80 transition-opacity duration-300">
               <Brush size={32} className="mr-3 text-gray-400" /> {/* Icon color */}
               <span>Kinesin</span> {/* Changed text here */}
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden sm:flex space-x-4"> {/* Hidden on small, flex on medium+ */}
@@ -425,8 +427,11 @@ function App() {
         </div>
       } />
 
-      {/* Route for the artwork detail page - NOT MODIFIED */}
+      {/* Route for the artwork detail page */}
       <Route path="/artwork/:artworkTitle" element={<ArtworkDetail />} /> {/* Dynamic route */}
+
+      {/* New Route for Exhibition Slider Page */}
+      <Route path="/exhibition" element={<ExhibitionSlider />} />
     </Routes>
   );
 }
