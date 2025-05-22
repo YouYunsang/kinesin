@@ -194,7 +194,7 @@ function App() {
     <Routes>
       {/* Route for the main landing page */}
       <Route path="/" element={
-        <div className="min-h-screen bg-gray-900 text-gray-300 overflow-x-hidden"> {/* Dark background, light text */}
+        <div className="min-h-screen bg-black text-gray-300 overflow-x-hidden"> {/* Changed main background to black */}
           {/* Header */}
           <header className="container mx-auto px-4 py-6 flex justify-between items-center text-gray-100 relative z-50"> {/* Added relative z-50 */}
             <div className="flex items-center text-2xl font-bold">
@@ -244,7 +244,7 @@ function App() {
 
           {/* Mobile Menu Overlay */}
           {isMobileMenuOpen && (
-            <div className="sm:hidden fixed inset-0 bg-gray-900 bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 animate-fadeIn"> {/* Full screen overlay */}
+            <div className="sm:hidden fixed inset-0 bg-black bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 animate-fadeIn"> {/* Changed overlay background to black */}
                <button
                 onClick={() => scrollToSection(artworksSectionNavRef)}
                 className="text-xl text-gray-300 hover:text-white font-medium transition duration-300 ease-in-out transform hover:scale-105"
@@ -291,7 +291,7 @@ function App() {
                 {/* Detailed Description Button - Now a Link */}
                 <Link
                   to="/artwork/시간의-흐름" // Example route, could be dynamic later
-                  className="inline-block bg-gray-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-gray-600 transition duration-300 ease-in-out transform hover:scale-105 animate-fadeInUp delay-400" // Dark button
+                  className="inline-block bg-gray-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105 animate-fadeInUp delay-400" // Changed button background
                 >
                   상세 설명 보기
                 </Link>
@@ -300,7 +300,7 @@ function App() {
           </section>
 
           {/* Artworks Section */}
-          <section ref={artworksSectionNavRef} className={`container mx-auto px-4 py-20 bg-gray-800 rounded-xl shadow-inner ${artworksVisible ? 'animate-fadeIn' : 'opacity-0'}`}> {/* Dark section background */}
+          <section ref={artworksSectionNavRef} className={`container mx-auto px-4 py-20 bg-black rounded-xl shadow-inner ${artworksVisible ? 'animate-fadeIn' : 'opacity-0'}`}> {/* Changed section background to black */}
             <h2 className={`text-3xl md::text-4xl font-bold text-center mb-16 text-gray-100`}> {/* Light heading */}
               작품 사진
             </h2>
@@ -309,7 +309,7 @@ function App() {
                 return (
                   <div
                     key={index}
-                    className={`bg-gray-700 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-xl cursor-pointer ${artworksVisible ? `animate-fadeInUp delay-${index * 100}` : 'opacity-0'}`} // Dark card background
+                    className={`bg-gray-950 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-xl cursor-pointer ${artworksVisible ? `animate-fadeInUp delay-${index * 100}` : 'opacity-0'}`}
                   >
                     <img
                       src={artwork.imageUrl} // This is now a local path
@@ -327,7 +327,7 @@ function App() {
           </section>
 
           {/* Artists Section */}
-          <section ref={artistsSectionNavRef} className={`container mx-auto px-4 py-20 ${artistsVisible ? 'animate-fadeIn' : 'opacity-0'}`}>
+          <section ref={artistsSectionNavRef} className={`container mx-auto px-4 py-20 bg-black ${artistsVisible ? 'animate-fadeIn' : 'opacity-0'}`}> {/* Changed section background to black */}
             <h2 className={`text-3xl md:text-4xl font-bold text-center mb-16 text-gray-100`}> {/* Light heading */}
               참여 작가
             </h2>
@@ -336,7 +336,7 @@ function App() {
                 return (
                   <div
                     key={index}
-                    className={`bg-gray-800 rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-3xl cursor-pointer ${artistsVisible ? `animate-fadeInUp delay-${index * 100}` : 'opacity-0'}`} // Dark card background
+                    className={`bg-gray-950 rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-3xl cursor-pointer ${artistsVisible ? `animate-fadeInUp delay-${index * 100}` : 'opacity-0'}`}
                   >
                     {/* Adjusted image classes */}
                     <img
@@ -361,7 +361,7 @@ function App() {
           </section>
 
           {/* Exhibition Info Section - NEW SECTION */}
-          <section ref={exhibitionInfoSectionNavRef} className="container mx-auto px-4 py-20 text-center"> {/* Assign ref */}
+          <section ref={exhibitionInfoSectionNavRef} className="container mx-auto px-4 py-20 text-center bg-black"> {/* Changed section background to black */}
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-100">전시 정보</h2> {/* Light heading */}
             <div className="text-lg text-gray-300 mb-12"> {/* Lighter gray text */}
               <p className="mb-4">
@@ -387,7 +387,7 @@ function App() {
 
 
           {/* Contact Section - MODIFIED */}
-          <section ref={contactSectionNavRef} className={`container mx-auto px-4 py-20 text-center ${contactVisible ? 'animate-fadeIn' : 'opacity-0'}`}>
+          <section ref={contactSectionNavRef} className={`container mx-auto px-4 py-20 text-center bg-black ${contactVisible ? 'animate-fadeIn' : 'opacity-0'}`}> {/* Changed section background to black */}
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-100">문의하기</h2> {/* Light heading */}
             <div className="text-lg text-gray-300 mb-12"> {/* Lighter gray text */}
               <p className="mb-4">각 작가에게 직접 문의하시려면 아래 이메일 주소를 이용해주세요.</p>
@@ -416,7 +416,7 @@ function App() {
           {showScrollToTop && (
             <button
               onClick={scrollToTop}
-              className="fixed bottom-6 right-6 bg-gray-700 text-white p-3 rounded-full shadow-lg hover:bg-gray-600 transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-500 focus::ring-opacity-50 z-50" // Dark button
+              className="fixed bottom-6 right-6 bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-500 focus::ring-opacity-50 z-50" // Changed button background
               aria-label="Scroll to top"
             >
               <ArrowUp size={24} />
