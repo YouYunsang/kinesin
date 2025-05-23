@@ -3,7 +3,8 @@ import { motion } from 'framer-motion'; // Import motion
 
 const ExhibitionSlider: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [currentSlide, setCurrentSlide] = useState(0); // State to track current slide index
+  // currentSlide tracks the index of the *real* slide being viewed (0, 1, 2)
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Placeholder content - Replace with actual game details
   const gameTitle = "The Mute Brush";
@@ -51,7 +52,8 @@ const ExhibitionSlider: React.FC = () => {
 
   const backgroundImage = '/images/logo_1920x1080.png'; // Define the background image path
   const numberOfRealSlides = 3; // We have 3 main slides (0, 1, 2)
-  const totalSlides = numberOfRealSlides + 1; // Add 1 for the dummy slide
+  // Total slides = dummy last + real slides + dummy first
+  const totalSlides = numberOfRealSlides + 2;
 
   // Effect to update current slide based on scroll position and handle looping
   useEffect(() => {
@@ -62,51 +64,78 @@ const ExhibitionSlider: React.FC = () => {
       const scrollLeft = slider.scrollLeft;
       const slideWidth = slider.clientWidth;
 
-      // Calculate the index including the dummy slide
-      const index = Math.round(scrollLeft / slideWidth);
+      // Calculate the index including dummy slides (0 to totalSlides-1)
+      const visibleIndex = Math.round(scrollLeft / slideWidth);
 
       // --- Looping Logic ---
-      // If we scrolled to the dummy slide (index 3)
-      if (index === numberOfRealSlides) {
-        // Jump back to the real first slide (index 0) instantly
+      // If scrolled to the dummy first slide (at the very end)
+      if (visibleIndex === totalSlides - 1) {
+        // Jump back to the real first slide (at index 1) instantly
         slider.scrollTo({
-          left: 0,
+          left: slideWidth, // Scroll to index 1
           behavior: 'auto', // Instant jump
         });
-        // Set current slide state to 0
+        // Update state to reflect being on the real first slide (index 0)
         setCurrentSlide(0);
       }
-      // If we scrolled left from the first slide to the dummy slide at the end (optional, not requested but good for full loop)
-      // This case is less likely with snap-mandatory when scrolling left from index 0,
-      // but adding for completeness if needed later.
-      // else if (index === -1) { // This might happen if scrolling left very fast from index 0
-      //   slider.scrollTo({
-      //     left: (numberOfRealSlides - 1) * slideWidth, // Jump to the last real slide
-      //     behavior: 'auto',
-      //   });
-      //   setCurrentSlide(numberOfRealSlides - 1);
-      // }
+      // If scrolled to the dummy last slide (at the very beginning)
+      else if (visibleIndex === 0) {
+        // Jump to the real last slide (at index numberOfRealSlides) instantly
+        slider.scrollTo({
+          left: numberOfRealSlides * slideWidth, // Scroll to index 3
+          behavior: 'auto', // Instant jump
+        });
+        // Update state to reflect being on the real last slide (index numberOfRealSlides - 1)
+        setCurrentSlide(numberOfRealSlides - 1);
+      }
+      // For real slides (indices 1, 2, 3 in the visible list)
       else {
-        // For real slides (0, 1, 2), update the state normally
-        setCurrentSlide(index);
+        // Map visible index (1, 2, 3) to real slide index (0, 1, 2)
+        setCurrentSlide(visibleIndex - 1);
       }
     };
 
-    slider.addEventListener('scroll', handleScroll);
+    // Use a small timeout to allow the scroll-snap to settle before checking position
+    // This can help prevent flickering or incorrect index calculation during fast scrolls
+    let scrollTimeout: NodeJS.Timeout | null = null;
+    const debouncedHandleScroll = () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(handleScroll, 50); // Adjust delay if needed
+    };
+
+
+    slider.addEventListener('scroll', debouncedHandleScroll);
+
+    // Initial scroll to the first real slide (index 1) after render
+    // Use a timeout to ensure the slider element is rendered and has a width
+    const initialScroll = setTimeout(() => {
+        if (sliderRef.current) {
+            sliderRef.current.scrollTo({
+                left: sliderRef.current.clientWidth, // Scroll to the second element (index 1)
+                behavior: 'auto', // Instant jump
+            });
+        }
+    }, 0);
+
 
     return () => {
-      slider.removeEventListener('scroll', handleScroll);
+      slider.removeEventListener('scroll', debouncedHandleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      clearTimeout(initialScroll);
     };
-  }, []); // Empty dependency array means this runs once on mount
+  }, [numberOfRealSlides, totalSlides]); // Re-run effect if slide count changes (unlikely here, but good practice)
 
   // Effect to handle the 20-second timer and auto-scroll
   useEffect(() => {
-    // Only apply timer to slides 1 and 2 (indices 1 and 2)
+    // Only apply timer to real slides 1 and 2 (indices 1 and 2 in the real list)
+    // These correspond to visible indices 2 and 3 in the list with dummies
     if (currentSlide === 1 || currentSlide === 2) {
       const timer = setTimeout(() => {
-        // Scroll back to the first slide (index 0)
+        // Scroll back to the first real slide (index 1 in the visible list)
         sliderRef.current?.scrollTo({
-          left: 0,
+          left: sliderRef.current.clientWidth, // Scroll to index 1
           behavior: 'smooth',
         });
       }, 20000); // 20 seconds
@@ -114,17 +143,17 @@ const ExhibitionSlider: React.FC = () => {
       // Clear the timer if the slide changes before 20 seconds
       return () => clearTimeout(timer);
     }
-    // If on slide 0 or the dummy slide (which immediately jumps to 0), ensure no timer is active
+    // If on real slide 0, ensure no timer is active
   }, [currentSlide]); // Re-run effect when currentSlide changes
 
-  // Function to scroll to a specific slide
-  const scrollToSlide = (index: number) => {
+  // Function to scroll to a specific real slide index (0, 1, 2)
+  const scrollToSlide = (realIndex: number) => {
     const slider = sliderRef.current;
     if (slider) {
       const slideWidth = slider.clientWidth;
-      // Scroll to the requested real slide index
+      // Scroll to the corresponding visible index (realIndex + 1)
       slider.scrollTo({
-        left: slideWidth * index,
+        left: slideWidth * (realIndex + 1),
         behavior: 'smooth',
       });
     }
@@ -155,6 +184,77 @@ const ExhibitionSlider: React.FC = () => {
     transition: { duration: 0.8, ease: "easeOut" }
   };
 
+  // Render functions for slide content to avoid repetition
+  const renderSlide1 = (isVisible: boolean) => (
+     <motion.img
+        src={backgroundImage}
+        alt="Kinesin Game Logo"
+        className="w-full h-full object-cover"
+        initial="initial"
+        // Only animate if this is the *real* slide 1 AND it's the current slide
+        animate={isVisible ? "animate" : "initial"}
+        variants={fadeIn}
+      />
+  );
+
+  const renderSlide2 = (isVisible: boolean) => (
+    <>
+      {/* Darkening Overlay */}
+      <div className="absolute inset-0 bg-black opacity-70"></div>
+      {/* Content */}
+      <div className="relative z-10 text-white">
+        <motion.h1
+          className="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg"
+          initial="initial"
+          animate={isVisible ? "animate" : "initial"}
+          variants={slideInDown}
+        >
+          {gameTitle}
+        </motion.h1>
+        <motion.p
+          className="text-lg md:text-xl leading-relaxed max-w-3xl opacity-90 drop-shadow-md"
+          initial="initial"
+          animate={isVisible ? "animate" : "initial"}
+          variants={slideInUp}
+          transition={{ ...slideInUp.transition, delay: 0.2 }}
+        >
+          {gameDescription}
+        </motion.p>
+      </div>
+    </>
+  );
+
+  const renderSlide3 = (isVisible: boolean) => (
+    <>
+      {/* Darkening Overlay */}
+      <div className="absolute inset-0 bg-black opacity-70"></div>
+       {/* Content Container */}
+       <motion.div
+         className="relative z-10 text-white w-full max-w-4xl mx-auto p-6 bg-black bg-opacity-60 rounded-lg shadow-xl"
+         initial="initial"
+         animate={isVisible ? "animate" : "initial"}
+         variants={scaleIn}
+       >
+         <h2 className="text-3xl font-bold mb-6 text-center text-white">{detailedPlan.title}</h2>
+         {detailedPlan.sections.map((section, index) => (
+           <div key={index} className="mb-8 last:mb-0">
+             <h3 className="text-xl font-semibold mb-3 text-gray-200">{section.heading}</h3>
+             {section.content && (
+               <p className="text-gray-300 leading-relaxed">{section.content}</p>
+             )}
+             {section.list && (
+               <ul className="list-disc list-inside text-gray-300 leading-relaxed space-y-2 pl-4">
+                 {section.list.map((item, itemIndex) => (
+                   <li key={itemIndex} dangerouslySetInnerHTML={{ __html: item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}></li>
+                 ))}
+               </ul>
+             )}
+           </div>
+         ))}
+       </motion.div>
+    </>
+  );
+
 
   return (
     <div className="w-screen h-screen overflow-hidden bg-black text-white relative"> {/* Added relative for pagination positioning */}
@@ -163,52 +263,7 @@ const ExhibitionSlider: React.FC = () => {
         ref={sliderRef} // Attach ref to the slider container
         className="w-full h-full flex overflow-x-scroll snap-x snap-mandatory"
       >
-        {/* Slide 1: Logo (Real Slide 0) */}
-        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
-          <motion.img
-            src={backgroundImage}
-            alt="Kinesin Game Logo"
-            className="w-full h-full object-cover"
-            initial="initial"
-            animate={currentSlide === 0 ? "animate" : "initial"}
-            variants={fadeIn}
-          />
-        </div>
-
-        {/* Slide 2: Title and Description (Real Slide 1) */}
-        <div
-          className="flex-shrink-0 w-full h-full snap-center flex flex-col items-center justify-center text-center p-8 relative"
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          {/* Darkening Overlay */}
-          <div className="absolute inset-0 bg-black opacity-70"></div>
-          {/* Content */}
-          <div className="relative z-10 text-white">
-            <motion.h1
-              className="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg"
-              initial="initial"
-              animate={currentSlide === 1 ? "animate" : "initial"}
-              variants={slideInDown}
-            >
-              {gameTitle}
-            </motion.h1>
-            <motion.p
-              className="text-lg md:text-xl leading-relaxed max-w-3xl opacity-90 drop-shadow-md"
-              initial="initial"
-              animate={currentSlide === 1 ? "animate" : "initial"}
-              variants={slideInUp}
-              transition={{ ...slideInUp.transition, delay: 0.2 }}
-            >
-              {gameDescription}
-            </motion.p>
-          </div>
-        </div>
-
-        {/* Slide 3: Detailed Plan (Real Slide 2) */}
+        {/* Dummy Slide: Copy of Real Slide 3 (Index 0) */}
         <div
           className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-8 overflow-y-auto relative"
            style={{
@@ -217,43 +272,41 @@ const ExhibitionSlider: React.FC = () => {
             backgroundPosition: 'center',
           }}
         >
-           {/* Darkening Overlay */}
-          <div className="absolute inset-0 bg-black opacity-70"></div>
-           {/* Content Container */}
-           <motion.div
-             className="relative z-10 text-white w-full max-w-4xl mx-auto p-6 bg-black bg-opacity-60 rounded-lg shadow-xl"
-             initial="initial"
-             animate={currentSlide === 2 ? "animate" : "initial"}
-             variants={scaleIn}
-           >
-             <h2 className="text-3xl font-bold mb-6 text-center text-white">{detailedPlan.title}</h2>
-             {detailedPlan.sections.map((section, index) => (
-               <div key={index} className="mb-8 last:mb-0">
-                 <h3 className="text-xl font-semibold mb-3 text-gray-200">{section.heading}</h3>
-                 {section.content && (
-                   <p className="text-gray-300 leading-relaxed">{section.content}</p>
-                 )}
-                 {section.list && (
-                   <ul className="list-disc list-inside text-gray-300 leading-relaxed space-y-2 pl-4">
-                     {section.list.map((item, itemIndex) => (
-                       <li key={itemIndex} dangerouslySetInnerHTML={{ __html: item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}></li>
-                     ))}
-                   </ul>
-                 )}
-               </div>
-             ))}
-           </motion.div>
+           {renderSlide3(false)} {/* Don't animate dummy slides */}
         </div>
 
-        {/* Dummy Slide: Copy of Slide 1 (Index 3) */}
-        {/* This slide is only for looping visual effect */}
+        {/* Real Slide 1: Logo (Index 1) */}
         <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
-          <motion.img
-            src={backgroundImage}
-            alt="Kinesin Game Logo"
-            className="w-full h-full object-cover"
-            // No animation needed for the dummy slide based on currentSlide
-          />
+          {renderSlide1(currentSlide === 0)}
+        </div>
+
+        {/* Real Slide 2: Title and Description (Index 2) */}
+        <div
+          className="flex-shrink-0 w-full h-full snap-center flex flex-col items-center justify-center text-center p-8 relative"
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          {renderSlide2(currentSlide === 1)}
+        </div>
+
+        {/* Real Slide 3: Detailed Plan (Index 3) */}
+        <div
+          className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-8 overflow-y-auto relative"
+           style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+           {renderSlide3(currentSlide === 2)}
+        </div>
+
+        {/* Dummy Slide: Copy of Real Slide 1 (Index 4) */}
+        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
+          {renderSlide1(false)} {/* Don't animate dummy slides */}
         </div>
       </div>
 
