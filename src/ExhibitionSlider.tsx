@@ -190,7 +190,7 @@ const ExhibitionSlider: React.FC = () => {
      <motion.img
         src={backgroundImage}
         alt="Kinesin Game Logo"
-        className="w-full h-full object-cover"
+        // Removed w-full, h-full, object-cover to display image at native size
         initial="initial"
         // Only animate if this is the *real* slide 1 AND it's the current slide
         animate={isVisible ? "animate" : "initial"}
