@@ -277,8 +277,8 @@ const ExhibitionSlider: React.FC = () => {
         </div>
 
         {/* Real Slide 1: Logo (Index 1) */}
-        {/* Removed p-4 padding to allow image to fill the container */}
-        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center">
+        {/* Added p-4 padding back */}
+        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
           {renderSlide1(currentSlide === 0)}
         </div>
 
@@ -307,8 +307,8 @@ const ExhibitionSlider: React.FC = () => {
         </div>
 
         {/* Dummy Slide: Copy of Real Slide 1 (Index 4) */}
-        {/* Removed p-4 padding for consistency with the real first slide */}
-        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center">
+        {/* Added p-4 padding back */}
+        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
           {renderSlide1(false)} {/* Don't animate dummy slides */}
         </div>
       </div>
