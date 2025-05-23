@@ -50,8 +50,10 @@ const ExhibitionSlider: React.FC = () => {
 
 
   const backgroundImage = '/images/logo_1920x1080.png'; // Define the background image path
+  const numberOfRealSlides = 3; // We have 3 main slides (0, 1, 2)
+  const totalSlides = numberOfRealSlides + 1; // Add 1 for the dummy slide
 
-  // Effect to update current slide based on scroll position
+  // Effect to update current slide based on scroll position and handle looping
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -59,9 +61,35 @@ const ExhibitionSlider: React.FC = () => {
     const handleScroll = () => {
       const scrollLeft = slider.scrollLeft;
       const slideWidth = slider.clientWidth;
-      // Calculate the current slide index based on scroll position
+
+      // Calculate the index including the dummy slide
       const index = Math.round(scrollLeft / slideWidth);
-      setCurrentSlide(index);
+
+      // --- Looping Logic ---
+      // If we scrolled to the dummy slide (index 3)
+      if (index === numberOfRealSlides) {
+        // Jump back to the real first slide (index 0) instantly
+        slider.scrollTo({
+          left: 0,
+          behavior: 'auto', // Instant jump
+        });
+        // Set current slide state to 0
+        setCurrentSlide(0);
+      }
+      // If we scrolled left from the first slide to the dummy slide at the end (optional, not requested but good for full loop)
+      // This case is less likely with snap-mandatory when scrolling left from index 0,
+      // but adding for completeness if needed later.
+      // else if (index === -1) { // This might happen if scrolling left very fast from index 0
+      //   slider.scrollTo({
+      //     left: (numberOfRealSlides - 1) * slideWidth, // Jump to the last real slide
+      //     behavior: 'auto',
+      //   });
+      //   setCurrentSlide(numberOfRealSlides - 1);
+      // }
+      else {
+        // For real slides (0, 1, 2), update the state normally
+        setCurrentSlide(index);
+      }
     };
 
     slider.addEventListener('scroll', handleScroll);
@@ -86,8 +114,7 @@ const ExhibitionSlider: React.FC = () => {
       // Clear the timer if the slide changes before 20 seconds
       return () => clearTimeout(timer);
     }
-    // If on slide 0, ensure no timer is active (though the above logic handles this)
-    // If the user manually scrolls to slide 0, the timer for 1 or 2 is cleared by the return function
+    // If on slide 0 or the dummy slide (which immediately jumps to 0), ensure no timer is active
   }, [currentSlide]); // Re-run effect when currentSlide changes
 
   // Function to scroll to a specific slide
@@ -95,6 +122,7 @@ const ExhibitionSlider: React.FC = () => {
     const slider = sliderRef.current;
     if (slider) {
       const slideWidth = slider.clientWidth;
+      // Scroll to the requested real slide index
       slider.scrollTo({
         left: slideWidth * index,
         behavior: 'smooth',
@@ -135,21 +163,19 @@ const ExhibitionSlider: React.FC = () => {
         ref={sliderRef} // Attach ref to the slider container
         className="w-full h-full flex overflow-x-scroll snap-x snap-mandatory"
       >
-        {/* Slide 1: Logo */}
+        {/* Slide 1: Logo (Real Slide 0) */}
         <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
-          {/* Replace with your actual logo image path */}
-          <motion.img // Use motion.img
-            src={backgroundImage} // Use the defined image path
+          <motion.img
+            src={backgroundImage}
             alt="Kinesin Game Logo"
-            className="max-w-full max-h-full object-contain"
+            className="w-full h-full object-cover"
             initial="initial"
-            animate={currentSlide === 0 ? "animate" : "initial"} // Animate when currentSlide is 0
-            variants={fadeIn} // Use fadeIn variant
+            animate={currentSlide === 0 ? "animate" : "initial"}
+            variants={fadeIn}
           />
         </div>
 
-        {/* Slide 2: Title and Description */}
-        {/* Added background image and darkening overlay */}
+        {/* Slide 2: Title and Description (Real Slide 1) */}
         <div
           className="flex-shrink-0 w-full h-full snap-center flex flex-col items-center justify-center text-center p-8 relative"
           style={{
@@ -159,30 +185,30 @@ const ExhibitionSlider: React.FC = () => {
           }}
         >
           {/* Darkening Overlay */}
-          <div className="absolute inset-0 bg-black opacity-70"></div> {/* Adjust opacity for desired darkness */}
+          <div className="absolute inset-0 bg-black opacity-70"></div>
           {/* Content */}
-          <div className="relative z-10 text-white"> {/* Ensure text is above the overlay */}
-            <motion.h1 // Use motion.h1
+          <div className="relative z-10 text-white">
+            <motion.h1
               className="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg"
               initial="initial"
-              animate={currentSlide === 1 ? "animate" : "initial"} // Animate when currentSlide is 1
-              variants={slideInDown} // Use slideInDown variant
+              animate={currentSlide === 1 ? "animate" : "initial"}
+              variants={slideInDown}
             >
               {gameTitle}
             </motion.h1>
-            <motion.p // Use motion.p
+            <motion.p
               className="text-lg md:text-xl leading-relaxed max-w-3xl opacity-90 drop-shadow-md"
               initial="initial"
-              animate={currentSlide === 1 ? "animate" : "initial"} // Animate when currentSlide is 1
-              variants={slideInUp} // Use slideInUp variant
-              transition={{ ...slideInUp.transition, delay: 0.2 }} // Add delay
+              animate={currentSlide === 1 ? "animate" : "initial"}
+              variants={slideInUp}
+              transition={{ ...slideInUp.transition, delay: 0.2 }}
             >
               {gameDescription}
             </motion.p>
           </div>
         </div>
 
-        {/* Slide 3: Detailed Plan - Modern Design */}
+        {/* Slide 3: Detailed Plan (Real Slide 2) */}
         <div
           className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-8 overflow-y-auto relative"
            style={{
@@ -192,18 +218,18 @@ const ExhibitionSlider: React.FC = () => {
           }}
         >
            {/* Darkening Overlay */}
-          <div className="absolute inset-0 bg-black opacity-70"></div> {/* Adjust opacity for desired darkness */}
+          <div className="absolute inset-0 bg-black opacity-70"></div>
            {/* Content Container */}
-           <motion.div // Use motion.div for the content container
+           <motion.div
              className="relative z-10 text-white w-full max-w-4xl mx-auto p-6 bg-black bg-opacity-60 rounded-lg shadow-xl"
              initial="initial"
-             animate={currentSlide === 2 ? "animate" : "initial"} // Animate when currentSlide is 2
-             variants={scaleIn} // Use scaleIn variant
+             animate={currentSlide === 2 ? "animate" : "initial"}
+             variants={scaleIn}
            >
-             <h2 className="text-3xl font-bold mb-6 text-center text-white">{detailedPlan.title}</h2> {/* Styled main heading */}
+             <h2 className="text-3xl font-bold mb-6 text-center text-white">{detailedPlan.title}</h2>
              {detailedPlan.sections.map((section, index) => (
-               <div key={index} className="mb-8 last:mb-0"> {/* Added margin between sections */}
-                 <h3 className="text-xl font-semibold mb-3 text-gray-200">{section.heading}</h3> {/* Styled section heading */}
+               <div key={index} className="mb-8 last:mb-0">
+                 <h3 className="text-xl font-semibold mb-3 text-gray-200">{section.heading}</h3>
                  {section.content && (
                    <p className="text-gray-300 leading-relaxed">{section.content}</p>
                  )}
@@ -218,17 +244,28 @@ const ExhibitionSlider: React.FC = () => {
              ))}
            </motion.div>
         </div>
+
+        {/* Dummy Slide: Copy of Slide 1 (Index 3) */}
+        {/* This slide is only for looping visual effect */}
+        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
+          <motion.img
+            src={backgroundImage}
+            alt="Kinesin Game Logo"
+            className="w-full h-full object-cover"
+            // No animation needed for the dummy slide based on currentSlide
+          />
+        </div>
       </div>
 
       {/* Pagination Dots */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-3 z-20"> {/* Position dots at the bottom */}
-        {[0, 1, 2].map((index) => ( // Assuming 3 slides (0, 1, 2)
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-3 z-20">
+        {[...Array(numberOfRealSlides)].map((_, index) => ( // Only map to real slides (0, 1, 2)
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-colors duration-300 ${
               currentSlide === index ? 'bg-white' : 'bg-gray-500 hover:bg-gray-400' // White for active, gray for inactive
             }`}
-            onClick={() => scrollToSlide(index)} // Scroll to slide on dot click
+            onClick={() => scrollToSlide(index)} // Scroll to the real slide on dot click
             aria-label={`Go to slide ${index + 1}`}
           ></button>
         ))}
