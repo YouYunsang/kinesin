@@ -15,36 +15,37 @@ const ExhibitionSlider: React.FC = () => {
     sections: [
       {
         heading: "1. 컨셉",
-        content: "치매 환자의 내면세계를 탐험하며 잃어가는 기억과 감정을 시각적으로 표현하는 인터랙티브 아트 게임.",
+        content: "치매 환자의 내면세계를 탐험하며 잃어가는 기억과 감정을 시각적으로 표현한 인터랙티브 게임 아트.",
       },
       {
         heading: "2. 목표",
-        content: "플레이어에게 치매 환자의 경험을 간접적으로 체험하게 하여 공감대를 형성하고, 기억과 정체성에 대한 성찰 기회를 제공.",
+        content: "플레이어에게 치매 환자의 내면을 간접적으로 체험하게 하여 공감대를 형성하고, 인격 상실과 정체성에 대한 성찰 기회를 제공.",
       },
       {
         heading: "3. 주요 특징",
         list: [
-          "**추상적인 비주얼:** 왜곡되고 흐릿해지는 기억을 표현하기 위해 몽환적이고 추상적인 그래픽 스타일 사용.",
-          "**감정 기반 상호작용:** 플레이어의 행동이나 특정 오브젝트와의 상호작용이 내면세계의 분위기나 비주얼에 영향을 미침.",
-          "**비선형적 서사:** 파편화된 기억 조각을 모으고 연결하며 스토리를 이해하는 방식.",
-          "**사운드 디자인:** 불안감, 혼란, 평온함 등 다양한 감정을 유발하는 몰입감 있는 사운드스케이프.",
+          "**추상적인 연출:** 왜곡되고 흐릿해지는 기억을 표현하기 위해 몽환적이고 추상적인 연출을 활용했습니다.",
+          "**높은 상호작용성:** 플레이어가 그린 그림이 게임의 분위기와 진행에 영향을 미칩니다.",
+          "**급격한 분위기 전환:** 몽환적이고 아름다운 분위기에서 어둡고 공포스러운 분위기로 급격히 전환하며 치매의 진행 표현했습니다.",
+          "**사운드 디자인:** 불안감, 혼란, 평온함 등 다양한 감정을 유발하는 몰입감 있는 사운드스케이프를 형성했습니다.",
         ],
       },
       {
         heading: "4. 게임 플레이",
         list: [
-          "플레이어는 '붓'을 사용하여 잊혀가는 기억의 흔적을 따라가거나 새로운 감정을 그려낼 수 있음.",
-          "특정 기억 조각을 활성화하면 과거의 단편적인 장면이나 소리가 재생됨.",
-          "내면세계의 환경은 플레이어의 감정 상태나 기억 복원 정도에 따라 변화함.",
+          "플레이어는 '붓'을 사용하여 \"최근 가장 행복했던 기억\"을 그리게 됩니다.",
+          "치매의 진행에 따라 플레이어는 기억을 그려내지 못하고, 그려낸 기억마저 지워지는 경험을 하게 됩니다.",
+          "치매의 악화로 결국 인격적 죽음에 이르며 모든 기억을 잃어버리는 경험을 제공합니다.",
         ],
       },
       {
-        heading: "5. 기술 스택",
-        content: "Unity 3D 또는 Unreal Engine (게임 개발), React/TypeScript (웹사이트).",
-      },
-      {
-        heading: "6. 전시회 활용",
-        content: "아이패드에 게임의 핵심 컨셉과 비주얼을 보여주는 데모 또는 인터랙티브 아트 설치물로 활용.",
+        heading: "5. 조작 방법",
+        list: [
+          "**오른쪽 조이스틱:** 방향 전환",
+					"**왼쪽 조이스틱:** 플레이어 이동",
+					"**오른쪽 & 왼쪽 검지 버튼:** (붓을 든 상태로)그림 그리기 버튼",
+					"**오른쪽 & 왼쪽 중지 버튼:** 붓 잡기",
+        ],
       },
     ],
   };
@@ -267,7 +268,7 @@ const ExhibitionSlider: React.FC = () => {
         <div
           className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-8 overflow-y-auto relative"
            style={{
-            backgroundImage: `url(${backgroundImage})`,
+            backgroundImage: `url(${backgroundImage}))`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -276,7 +277,8 @@ const ExhibitionSlider: React.FC = () => {
         </div>
 
         {/* Real Slide 1: Logo (Index 1) */}
-        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
+        {/* Removed p-4 padding to allow image to fill the container */}
+        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center">
           {renderSlide1(currentSlide === 0)}
         </div>
 
@@ -305,7 +307,8 @@ const ExhibitionSlider: React.FC = () => {
         </div>
 
         {/* Dummy Slide: Copy of Real Slide 1 (Index 4) */}
-        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center p-4">
+        {/* Removed p-4 padding for consistency with the real first slide */}
+        <div className="flex-shrink-0 w-full h-full snap-center flex items-center justify-center">
           {renderSlide1(false)} {/* Don't animate dummy slides */}
         </div>
       </div>
